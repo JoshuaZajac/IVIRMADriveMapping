@@ -69,9 +69,11 @@ do {
 }while( -not ($Connected))
 
 #Map drives
+    $Drives=Get-PSDrive
+    
     $driveMappingConfig.GetEnumerator() | ForEach-Object {
         
-        If(!(Get-PSDrive $PSItem.DriveLetter)){
+        If(!($Drives.Name -contains $PSItem.DriveLetter)) {
             
         If($Null -eq $Creds){ Get-Credential -Username "$(RMANJ\$env:USERNAME)"}
 
