@@ -75,7 +75,7 @@ do {
         
         If(!($Drives.Name -contains $PSItem.DriveLetter)) {
             
-        If($Null -eq $Creds){ Get-Credential -Username "RMANJ\$env:USERNAME"}
+        If($Null -eq $Creds){ Get-Credential -Credential "RMANJ\$env:USERNAME" -Message "Enter your IVIRMA password"}
 
         Write-Output "Mapping network drive $($PSItem.UNCPath)"
 
