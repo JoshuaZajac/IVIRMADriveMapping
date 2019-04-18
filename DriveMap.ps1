@@ -11,15 +11,13 @@ $driveMappingConfig=@()
    Add your internal Active Directory Domain name and custom network drives below
 #>
 
-$dnsDomainName= "rmanj.com"
-
+$dnsDomainName= "RMANAS02.rmanj.com"
 
 $driveMappingConfig+= [PSCUSTOMOBJECT]@{
     DriveLetter = "H"
     UNCPath= "\\RMANAS02\$env:USERNAME"
     Description="Home"
 }
-
 
 $driveMappingConfig+=  [PSCUSTOMOBJECT]@{
     DriveLetter = "S"
@@ -72,12 +70,18 @@ do {
 
 #Map drives
     $driveMappingConfig.GetEnumerator() | ForEach-Object {
+        
+        If(!(Get-PSDrive $PSItem.DriveLetter)){
+            
+        If($Null -eq $Creds){ Get-Credential -Username "$(RMANJ\$env:USERNAME)"}
 
         Write-Output "Mapping network drive $($PSItem.UNCPath)"
 
-        New-PSDrive -PSProvider FileSystem -Name $PSItem.DriveLetter -Root $PSItem.UNCPath -Description $PSItem.Description -Persist -Scope global
+        New-PSDrive -PSProvider FileSystem -Name $PSItem.DriveLetter -Root $PSItem.UNCPath -Description $PSItem.Description -Persist -Scope global -Credential $Creds
 
         (New-Object -ComObject Shell.Application).NameSpace("$($PSItem.DriveLEtter):").Self.Name=$PSItem.Description
+
+        }
 }
 
 Stop-Transcript
