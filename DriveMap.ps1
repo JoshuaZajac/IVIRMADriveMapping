@@ -15,7 +15,7 @@ $dnsDomainName= "RMANAS02.rmanj.com"
 
 $driveMappingConfig+= [PSCUSTOMOBJECT]@{
     DriveLetter = "H"
-    UNCPath= "\\RMANAS02\$env:USERNAME"
+    UNCPath= "\\RMANAS02\Private\$env:USERNAME"
     Description="Home"
 }
 
@@ -75,7 +75,7 @@ do {
         
         If(!($Drives.Name -contains $PSItem.DriveLetter)) {
             
-        If($Null -eq $Creds){ Get-Credential -Credential "RMANJ\$env:USERNAME" -Message "Enter your IVIRMA password"}
+        If($Null -eq $Creds){ $Creds = Get-Credential -Credential "RMANJ\$env:USERNAME"}
 
         Write-Output "Mapping network drive $($PSItem.UNCPath)"
 
