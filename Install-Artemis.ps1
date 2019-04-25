@@ -10,7 +10,7 @@ Write-Output "Starting script..."
     if (Resolve-DnsName $dnsDomainName -ErrorAction SilentlyContinue){
     
         Write-Host "Copying installer.."
-        Copy-Item -Path "\\rmamdt.rmanj.com\PDQ_Repository\Artemis\Artemis_Installer_prod_64bit_20170916" -Destination C:\bin\Artemis -Recurse
+        Copy-Item -Path "\\rmamdt.rmanj.com\PDQ_Repository\Artemis\Artemis_Installer_prod_64bit_20170916" -Destination C:\bin\Artemis -Recurse -Force
         cd "C:\bin\Artemis\"
         Write-Host "Installing..."
         (Start-Process -FilePath "install.exe" -ArgumentList "Y prod Y" -Wait -PassThru -Verb RunAs).ExitCode
