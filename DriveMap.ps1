@@ -1,3 +1,5 @@
+NET USE * /d /y
+
 Start-Transcript -Path $(Join-Path $env:temp "DriveMapping.log")
 
 $driveMappingConfig=@()
