@@ -79,7 +79,7 @@ do {
 
         Write-Output "Mapping network drive $($PSItem.UNCPath)"
 
-        New-PSDrive -PSProvider FileSystem -Name $PSItem.DriveLetter -Root $PSItem.UNCPath -Description $PSItem.Description -Persist -Scope global -Credential $Creds
+        New-PSDrive -PSProvider FileSystem -Name $PSItem.DriveLetter -Root $PSItem.UNCPath -Description $PSItem.Description -Scope global -Credential $Creds
 
         (New-Object -ComObject Shell.Application).NameSpace("$($PSItem.DriveLEtter):").Self.Name=$PSItem.Description
 

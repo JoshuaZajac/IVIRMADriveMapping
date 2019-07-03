@@ -9,7 +9,7 @@ Write-Output "Starting script..."
     
     if (Resolve-DnsName $dnsDomainName -ErrorAction SilentlyContinue){
     
-        Write-Host "Copying installer.."
+        <#Write-Host "Copying installer.."
         Copy-Item -Path "\\rmamdt.rmanj.com\PDQ_Repository\Artemis\Artemis_Installer_prod_64bit_20170916" -Destination C:\bin\Artemis -Recurse -Force
         cd "C:\bin\Artemis\"
         Write-Host "Installing..."
@@ -17,6 +17,10 @@ Write-Output "Starting script..."
         cd "C:\"
         Write-Host "Cleaning up..."
         Remove-Item -Path "C:\bin\Artemis" -Force -Recurse
+        #>
+        Push-Location -Path "\\RMAMDT\PDQ_Repository\Artemis\Artemis_Installer_prod_64bit_20170916"
+        .\install.exe Y prod Y -Verb RunAs
+        Pop-Location
 
     } else{
  
